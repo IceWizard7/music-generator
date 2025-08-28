@@ -30,10 +30,10 @@ def define_constants():
         for j in range(32):
             xz_locations.append((current_x_location, 2*j))
 
-def generate_schematic():
+def generate_schematic(filename):
     define_constants()
 
-    filename = f'Song_{datetime.datetime.now().strftime("%d_%m_%y_%H_%M_%S")}'  # Schemati wants _ and no -
+    filename = filename.replace('-', '_') # Schemati (ORE Tool) doesn't like '-'
 
     schem = mcschematic.MCSchematic()
 
@@ -73,4 +73,4 @@ def generate_schematic():
     # print(f'//paste -a')
 
 if __name__ == '__main__':
-    generate_schematic()
+    generate_schematic('test')
