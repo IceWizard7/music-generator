@@ -1,5 +1,4 @@
 import mcschematic
-import datetime
 from colorama import Fore, Style
 
 xz_locations = []

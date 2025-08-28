@@ -57,40 +57,6 @@ def note_to_bin(note):
     except (ValueError, KeyError):
         raise ValueError(f'Invalid note format: {note}')
 
-
-def fix_alignment(current_note, previous_note):
-    assert len(current_note) == 32 and len(previous_note) == 32
-
-    def byte_split(s: str):
-        return [s[i:i + 8] for i in range(0, 32, 8)]
-
-    def byte_join(blocks):
-        return "".join(blocks)
-
-    prev_blocks = byte_split(previous_note)
-
-    def is_valid(curr_blocks):
-        return all(c != p or c == "00000000" for c, p in zip(curr_blocks, prev_blocks))
-
-    blocks = byte_split(current_note)
-
-    # 1) Try rotations only
-    for shift in range(4):  # 0, 1, 2, 3 blocks
-        rotated = blocks[-shift:] + blocks[:-shift] if shift else blocks
-        if is_valid(rotated):
-            return byte_join(rotated)
-
-    # 2) Try permutations + rotations
-    for perm in itertools.permutations(blocks, 4):
-        for shift in range(4):
-            rotated = list(perm[-shift:] + perm[:-shift]) if shift else list(perm)
-            if is_valid(rotated):
-                return byte_join(rotated)
-
-    # 3) If nothing works
-    raise ValueError("No valid alignment found — identical notes across all layers.")
-
-
 def convert_to_raw_music():
     with open('music.txt', 'r') as file:
         content = file.readlines()
@@ -102,7 +68,6 @@ def convert_to_raw_music():
         clean_content.append(line.replace('\n', ''))  # Remove new lines
 
     raw_content.append(4 * 8 * '0')
-    previous_note = 4 * 8 * '0'
 
     for line in clean_content:
         if ',' in line:
@@ -113,14 +78,9 @@ def convert_to_raw_music():
 
             notes = notes + ((4 - len(parts)) * 8 * '0')
 
-            notes = fix_alignment(notes, previous_note)
-
-            previous_note = notes
             raw_content.append(notes)
         else:
             notes = note_to_bin(line) + 3 * 8 * '0'
-            notes = fix_alignment(notes, previous_note)
-            previous_note = notes
             raw_content.append(notes)
 
     with open('binary.txt', 'w') as file:
