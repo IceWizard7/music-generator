@@ -12,5 +12,5 @@ Download [Note Block Studio](https://noteblock.studio/), create a song & export 
 - Now your schematic is located in schematics/file_name.schem!
 - Copy that and 
 
-Note Block sheet (Minecraft wiki): https://minecraft.fandom.com/wiki/Note_Block?file=Noteblock_reference.png \
+[Note Block sheet (Minecraft wiki)](https://minecraft.fandom.com/wiki/Note_Block?file=Noteblock_reference.png) \
 License: [LICENSE](./LICENSE)
