@@ -9,8 +9,8 @@ Download [Note Block Studio](https://noteblock.studio/), create a song & export 
 - Move your desired .nbs file into the songs/ folder.
 - In scripts/main.py change `file_name` to however your file is called (without any file extension! So for example, "Song1")
 - Run app.py
-- Now your schematic is located in schematics/file_name.schem!
-- Copy that and 
+- Now your schematic is located in schematics/`file_name`.schem
+- Copy that and paste it into your minecraft world!
 
 [Note Block sheet (Minecraft wiki)](https://minecraft.fandom.com/wiki/Note_Block?file=Noteblock_reference.png) \
 License: [LICENSE](./LICENSE)
